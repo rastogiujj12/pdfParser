@@ -16,6 +16,20 @@ for page in PDFPage.get_pages(document):
     interpreter.process_page(page)
     # receive the LTPage object for the page.
     layout = device.get_result()
+    x0 = y0 = x1 = y1 = 0
+    tableColumns = []
     for element in layout:
         if isinstance(element, LTTextBoxHorizontal):
-            print('>>>>',element.get_text())
+            #print(x0, y0, x1, y1)
+            if(y0==element.bbox[1] and y1==element.bbox[3]):
+                if(len(tableColumns)==0):
+                    tableColumns.append(x0)
+                tableColumns.append(element.bbox[0])
+
+            elif(x0 not in tableColumns):
+                if(len(tableColumns)!=0):
+                    tableColumns.clear()
+                print('>>>>',element.bbox[0], element.bbox[1])
+                print('->',element.get_text())    
+            x0,y0,x1,y1=element.bbox        
+            
