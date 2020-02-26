@@ -8,5 +8,5 @@ install pdfminer.six
 `pip install pdfminer.six`
 
 paste the pdf file to the same location and rename it to pdf.pdf. 
-2
+
 `python parsePdf.py`
